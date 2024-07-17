@@ -26,6 +26,17 @@ declare global {
  
 export default function Passport() {
  
+  const [address, setAddress] = useState<string>('') // address of the user
+
+  async function connect() {
+    try {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+      setAddress(accounts[0])
+    } catch (err) {
+      console.log('error connecting...')
+    }
+  }
+
   const styles = {
     main: {
       width: '900px',
@@ -39,6 +50,7 @@ export default function Passport() {
     <div style={styles.main}>
       <ChakraProvider>
         <Flex minWidth='max-content' alignItems='right' gap='2' justifyContent='right'>
+          <Button colorScheme='teal' variant='outline' onClick={connect}>Connect</Button>
         </Flex>
         <br />
         <br />
