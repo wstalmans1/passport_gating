@@ -37,6 +37,23 @@ export default function Passport() {
     }
   }
 
+  useEffect(() => {
+    checkConnection()
+    async function checkConnection() {
+      try {
+        const provider = new ethers.BrowserProvider(window.ethereum)
+        const accounts = await provider.listAccounts()
+        // if the user is connected, set their account
+        if (accounts && accounts[0]) {
+          setAddress(accounts[0].address)
+        }
+      } catch (err) {
+        console.log('not connected...')
+      }
+    }
+  }, [])
+  
+
   const styles = {
     main: {
       width: '900px',
