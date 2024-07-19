@@ -12,7 +12,7 @@ const SUBMIT_PASSPORT_URI = 'https://api.scorer.gitcoin.co/registry/submit-passp
 // endpoint for getting the signing message
 const SIGNING_MESSAGE_URI = 'https://api.scorer.gitcoin.co/registry/signing-message'
 // score needed to see hidden message
-const thresholdNumber = 1
+const thresholdNumber = 2
 const headers = APIKEY ? ({
   'Content-Type': 'application/json',
   'X-API-Key': APIKEY
@@ -153,7 +153,7 @@ export default function Passport() {
         <br />
         <Heading as='h1' size='4xl' noOfLines={2}>Welcome to the decentralized web</Heading>
         <br />
-        <TabLayout isAboveThreshold={isAboveThreshold} />
+        <TabLayout isAboveThreshold={isAboveThreshold} score={Number(score)} />
  
       </ChakraProvider >
     </div >

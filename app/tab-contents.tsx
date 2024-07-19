@@ -1,34 +1,33 @@
 import React from "react"
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Link } from '@chakra-ui/react'
  
-const TabLayout = ({ isAboveThreshold }: { isAboveThreshold: boolean }) => {
+const TabLayout = ({ isAboveThreshold, score }: { isAboveThreshold: boolean; score: number }) => {
     return (
-        <Tabs>
-            <TabList>
-                <Tab>Home</Tab>
-                <Tab>Learn about Web3</Tab>
-                <Tab>Learn about DAOs</Tab>
-                <Tab>Join the DAO</Tab>
-            </TabList>
- 
-            <TabPanels>
-                <TabPanel>
-                    <Welcome />
-                </TabPanel>
-                <TabPanel>
-                    <WhatIsWeb3 />
-                </TabPanel>
-                <TabPanel>
-                    <WhatAreDaos />
-                </TabPanel>
-                <TabPanel>
-                    <JoinTheDao isAboveThreshold={isAboveThreshold} />
-                </TabPanel>
-            </TabPanels>
-        </Tabs>
+      <Tabs>
+        <TabList>
+          <Tab>Home</Tab>
+          <Tab>Learn about Web3</Tab>
+          <Tab>Learn about DAOs</Tab>
+          <Tab>Join the DAO</Tab>
+        </TabList>
+  
+        <TabPanels>
+          <TabPanel>
+            <Welcome />
+          </TabPanel>
+          <TabPanel>
+            <WhatIsWeb3 />
+          </TabPanel>
+          <TabPanel>
+            <WhatAreDaos />
+          </TabPanel>
+          <TabPanel>
+            <JoinTheDao isAboveThreshold={isAboveThreshold} score={score} />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     )
- 
-}
+  }
  
 const Welcome = () => {
     return (
@@ -86,7 +85,7 @@ const WhatAreDaos = () => {
     )
 }
  
-const JoinTheDao = ({ isAboveThreshold }: { isAboveThreshold: boolean }) => {
+const JoinTheDao = ({ isAboveThreshold, score }: { isAboveThreshold: boolean; score: number }) => {
     if (isAboveThreshold) {
         return (
             <ContentAboveThreshold />
@@ -94,7 +93,7 @@ const JoinTheDao = ({ isAboveThreshold }: { isAboveThreshold: boolean }) => {
     }
     else {
         return (
-            <ContentBelowThreshold />
+            <ContentBelowThreshold score={score} />
  
         )
     }
@@ -120,7 +119,11 @@ const ContentAboveThreshold = () => {
     )
 }
  
-const ContentBelowThreshold = () => {
+const ContentBelowThreshold = ({ score }: { score: number }) => {
+    let text: string = `Your current Passport score is ${score}`
+    if (score.toString().length === 0) {
+        text = "You do not yet have a Passport score. Maybe you haven't created or connected your Passport?"
+    }
     return (
         <>
             <br />
@@ -129,10 +132,11 @@ const ContentBelowThreshold = () => {
             <p>We would love you to join our DAO.</p>
             <br />
             <p>Unfortunately, you do not quite meet the eligibility criteria.</p>
-            <p>You can go to the <Link href="passport.gitcoin.co" color='teal.500' isExternal>Passport App </Link> and add more Stamps to your Passport.</p>
+            <p> {text} </p>
+            <p>You can go to the <Link href="https://passport.gitcoin.co" color='teal.500' isExternal>Passport App </Link> and add more Stamps to your Passport.</p>
             <p>When you have enough Stamps to generate a score above 20, you can come back and join our DAO!</p>
             <br />
-            <p>In the meantime you can read our <Link href="docs.gitcoin.co" color='teal.500' isExternal> awesome documentation </Link> to learn more about Gitcoin passport</p>
+            <p>In the meantime you can read our <Link href="https://docs.gitcoin.co" color='teal.500' isExternal> awesome documentation </Link> to learn more about Gitcoin Passport</p>
         </>
     )
 }
