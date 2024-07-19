@@ -12,7 +12,7 @@ const SUBMIT_PASSPORT_URI = 'https://api.scorer.gitcoin.co/registry/submit-passp
 // endpoint for getting the signing message
 const SIGNING_MESSAGE_URI = 'https://api.scorer.gitcoin.co/registry/signing-message'
 // score needed to see hidden message
-const thresholdNumber = 2
+const thresholdNumber = 20
 const headers = APIKEY ? ({
   'Content-Type': 'application/json',
   'X-API-Key': APIKEY
