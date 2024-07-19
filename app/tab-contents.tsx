@@ -1,7 +1,7 @@
 import React from "react"
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Link } from '@chakra-ui/react'
  
-const TabLayout = () => {
+const TabLayout = ({ isAboveThreshold }: { isAboveThreshold: boolean }) => {
     return (
         <Tabs>
             <TabList>
@@ -22,11 +22,12 @@ const TabLayout = () => {
                     <WhatAreDaos />
                 </TabPanel>
                 <TabPanel>
-                    <JoinTheDao />
+                    <JoinTheDao isAboveThreshold={isAboveThreshold} />
                 </TabPanel>
             </TabPanels>
         </Tabs>
     )
+ 
 }
  
 const Welcome = () => {
@@ -85,12 +86,53 @@ const WhatAreDaos = () => {
     )
 }
  
-const JoinTheDao = () => {
+const JoinTheDao = ({ isAboveThreshold }: { isAboveThreshold: boolean }) => {
+    if (isAboveThreshold) {
+        return (
+            <ContentAboveThreshold />
+        )
+    }
+    else {
+        return (
+            <ContentBelowThreshold />
+ 
+        )
+    }
+}
+
+const ContentAboveThreshold = () => {
     return (
         <>
             <br />
-            <p>Hello world!</p>
             <br />
+            <p>🎉🎉🎉</p>
+            <p><b>Welcome to Passport DAO!</b></p>
+            <br />
+            <p>Passport DAO is a fictional DAO for Passport builders.</p>
+            <p>Passport DAO does not really exist, it is just an example made up for the purposes of this tutorial!</p>
+            <p>However, since you have a Passport with a score {">"} 20 and you have built this demo app, </p>
+            <p>you might enjoy the Gitcoin Developer Telegram, where other Passport builders hang out.</p>
+            <br />
+            <p>Join fellow builders on the <Link href="https://t.me/+Mcp9RsRV7tVmYjZh" color='teal.500' isExternal>Passport Developer Telegram</Link></p >
+            <p></p>
+            <br />
+        </>
+    )
+}
+ 
+const ContentBelowThreshold = () => {
+    return (
+        <>
+            <br />
+            <p>😭😭😭</p>
+            <br />
+            <p>We would love you to join our DAO.</p>
+            <br />
+            <p>Unfortunately, you do not quite meet the eligibility criteria.</p>
+            <p>You can go to the <Link href="passport.gitcoin.co" color='teal.500' isExternal>Passport App </Link> and add more Stamps to your Passport.</p>
+            <p>When you have enough Stamps to generate a score above 20, you can come back and join our DAO!</p>
+            <br />
+            <p>In the meantime you can read our <Link href="docs.gitcoin.co" color='teal.500' isExternal> awesome documentation </Link> to learn more about Gitcoin passport</p>
         </>
     )
 }
